@@ -1,0 +1,11 @@
+config.yaml
+logs/
+solved_captchas/
+temp/
+*.log
+
+__pycache__/
+.DS_Store
+.vscode/
+.idea/
+venv/

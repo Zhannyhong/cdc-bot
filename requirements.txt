@@ -1,0 +1,5 @@
+requests
+selenium 
+pyyaml
+python-telegram-bot
+2captcha-python

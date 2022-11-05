@@ -1,0 +1,77 @@
+# ---------------------------- TWO-CAPTCHA CONFIG ---------------------------- #
+# This program uses the 2captcha API to solve captchas on the website. See README.md for more info.
+two_captcha_config:
+  api_key: "!KEY_HERE!"                       # Your 2captcha API key here.
+  enabled: True                               # If True, 2captcha will be used to solve captchas. If False, you will have to set headless_mode in browser_config to False and solve the captchas manually.
+  debug_mode: True                            # Whether to print out 2captcha debug info.
+# ------------------------------------- - ------------------------------------ #
+
+
+# ------------------------------- EMAIL CONFIG ------------------------------- #
+# See README.md for more info on how to set up email notifications.
+mail_config:
+  email_notification_enabled: False           # Whether to push notification to your email.
+
+  # If you are you using a different email provider, search for its smtp_server and port.
+  smtp_server: "smtp.gmail.com"
+  smtp_port: 587
+
+  smtp_user: "!EMAIL_HERE!@gmail.com"         # Who to send the notification from.
+  smtp_pw: "!PASSWORD_HERE!"                  # Your password here. See README.md if you use 2FA for your email.
+
+  recipient_address: "!EMAIL_HERE!@gmail.com" # Who to send the notification to.
+# ------------------------------------- - ------------------------------------ #
+
+
+# ---------------------------- TELEGRAM BOT CONFIG --------------------------- #
+# See README.md for more info on how to set up a telegram bot for push notifications.
+telegram_config:
+  telegram_notification_enabled: True         # Whether to push notification to telegram bot.
+
+  telegram_bot_token: "!TOKEN_HERE!"
+  telegram_chat_id: "!CHAT_ID_HERE!"
+# ------------------------------------- - ------------------------------------ #
+
+
+# ------------------------------ PROGRAM CONFIG ------------------------------ #
+cdc_login_credentials:
+  username: "!USERNAME_HERE!"                 # CDC Username
+  password: "!PASSWORD_HERE!"                 # CDC Password
+
+program_config:
+  auto_reserve: True                          # Whether to (try and) reserve earliest available slots. User must still log in to confirm these sessions.
+  reserve_for_same_day: True                  # Whether to consider slots on the same days as currently booked slots.
+  book_from_other_teams: True                 # Whether to book from other OneTeams (User must be a OneTeam member).
+  refresh_rate: 1800                          # How long to wait between checks on the website (in seconds). The program will not check between 3 and 6 AM.
+
+  slots_per_type:                             # How many slots to try and reserve per type.
+    simulator : 3
+    practical : 6
+    btt       : 1
+    rtt       : 1                             # Riding Theory Test is for Class 2B riders only.
+    ftt       : 1
+    pt        : 1
+
+  monitored_types:                            # Toggle to True for which types you want the bot to be checking for.
+    simulator : False
+    practical : False
+    btt       : False
+    rtt       : False                         # Riding Theory Test is for Class 2B riders only.
+    ftt       : False
+    pt        : False
+
+browser_config:
+  type: "firefox"                             # Uses firefox driver as default (other option is chrome if you have Chrome installed).
+  headless_mode: True                         # If True, selenium_driver will run without the visible UI.
+# ------------------------------------- - ------------------------------------ #
+
+
+# -------------------------------- LOG CONFIG -------------------------------- #
+log_config:
+  log_level: 1                                # 1 - DEBUG, 2 - INFO, 3 - WARN, 4- ERROR: If log_level == 3, then only WARN, ERROR will be shown in logs
+  print_log_to_output: True                   # Whether to prints log to console
+  write_log_to_file: True                     # Whether to write log to file (found in $(workspace)/logs/)
+  clear_logs_init: False                      # Whether to delete old log files before at the start of every execution
+  appends_stack_call_to_log : False           # Whether to display stack_info in log
+  save_solved_captchas: False                 # Whether to save solved captchas to $(workspace)/solved_captchas/
+# ------------------------------------- - ------------------------------------ #
