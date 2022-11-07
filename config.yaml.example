@@ -62,7 +62,7 @@ program_config:
 
 browser_config:
   type: "firefox"                             # Uses firefox driver as default (other option is chrome if you have Chrome installed).
-  headless_mode: True                         # If True, selenium_driver will run without the visible UI.
+  headless_mode: True                         # If True, selenium_driver will run without the visible UI. If False, the program can still run in the background even if the display is off.
 # ------------------------------------- - ------------------------------------ #
 
 

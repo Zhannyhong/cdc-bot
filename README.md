@@ -101,6 +101,7 @@ The program will not run from 3am to 6am as it is unlikely other people will can
 and the user will also likely be asleep and unable to book the session. This is to reduce requests to 2captcha.
 
 # Run it!
+Run the program from the working directory `cdc-bot` so that the directories are in the correct path.
 ```bash
 $ python src/main.py
 ```
