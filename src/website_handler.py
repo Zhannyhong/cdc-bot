@@ -378,8 +378,12 @@ class handler(CDCAbstract):
             return False
 
         course_data = self.get_course_data()
-        if not (self.select_course_from_name(course_data, "Class 3A Motorcar") or self.select_course_from_idx(
-                course_data, 1)):
+        if len(course_data["available_courses"]) <= 1:
+            self.log.error(f"No {field_type.upper()} courses available.")
+            return False
+
+        if not (self.select_course_from_name(course_data, "Class 3A Motorcar") or
+                self.select_course_from_idx(course_data, 1)):
             self.log.error("Could not a select course.")
             return False
 
@@ -444,6 +448,10 @@ class handler(CDCAbstract):
             return False
 
         course_data = self.get_course_data()
+        if len(course_data["available_courses"]) <= 1:
+            self.log.error(f"No {field_type.upper()} courses available.")
+            return False
+
         if not (self.select_course_from_name(course_data, "Simulator Course - Car (School)") or
                 self.select_course_from_idx(course_data, 1)):
             self.log.error("Could not a select course.")
@@ -452,6 +460,7 @@ class handler(CDCAbstract):
         if not self.dismiss_normal_captcha(caller_identifier="Simulator Lessons Booking", solve_captcha=True):
             return self.open_simulator_lessons_booking_page(field_type, call_depth + 1)
 
+        time.sleep(2)
         return True
 
     def open_practical_test_booking_page(self, field_type: str, call_depth: int = 0):
