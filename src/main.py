@@ -38,47 +38,53 @@ if __name__ == "__main__":
         success_logging_in = cdc_handler.account_login()
         monitored_types = program_config["monitored_types"]
 
-        while True:
-            cdc_handler.open_booking_overview()
-            cdc_handler.get_booked_lesson_date_time()
-            cdc_handler.get_reserved_lesson_date_time()
+        try:
+            while True:
+                cdc_handler.open_booking_overview()
+                cdc_handler.get_booked_lesson_date_time()
+                cdc_handler.get_reserved_lesson_date_time()
 
-            for monitor_type, monitor_active in monitored_types.items():
-                if monitor_active and cdc_handler.open_field_type_booking_page(field_type=monitor_type):
-                    cdc_handler.get_all_session_date_times(field_type=monitor_type)
-                    cdc_handler.get_all_available_sessions(field_type=monitor_type)
-                    cdc_handler.check_if_earlier_available_sessions(field_type=monitor_type)
+                for monitor_type, monitor_active in monitored_types.items():
+                    if monitor_active and cdc_handler.open_field_type_booking_page(field_type=monitor_type):
+                        cdc_handler.get_all_session_date_times(field_type=monitor_type)
+                        cdc_handler.get_all_available_sessions(field_type=monitor_type)
+                        cdc_handler.check_if_earlier_available_sessions(field_type=monitor_type)
 
-            log.info(cdc_handler)
-            cdc_handler.flush_notification_update()
+                log.info(cdc_handler)
+                cdc_handler.flush_notification_update()
 
-            if program_config["refresh_rate"] > 0:
-                refresh_rate = program_config["refresh_rate"]
+                if program_config["refresh_rate"] > 0:
+                    refresh_rate = program_config["refresh_rate"]
 
-                current_time = datetime.datetime.now()
-                sleep_duration = datetime.timedelta(seconds=refresh_rate)
-                next_run_time = current_time + sleep_duration
+                    current_time = datetime.datetime.now()
+                    sleep_duration = datetime.timedelta(seconds=refresh_rate)
+                    next_run_time = current_time + sleep_duration
 
-                # Sleep between 3 and 6 am because slots rarely get cancelled then
-                if 3 <= next_run_time.hour < 6:
-                    extra_sleep = next_run_time.replace(hour=6) - next_run_time
-                    sleep_duration += extra_sleep
+                    # Sleep between 3 and 6 am because slots rarely get cancelled then
+                    if 3 <= next_run_time.hour < 6:
+                        extra_sleep = next_run_time.replace(hour=6) - next_run_time
+                        sleep_duration += extra_sleep
 
-                cdc_handler.log.info(
-                    f"Program now sleeping for {sleep_duration} till {current_time + sleep_duration}...")
+                    cdc_handler.log.info(
+                        f"Program now sleeping for {sleep_duration} till {current_time + sleep_duration}...")
 
-                sleep_duration = sleep_duration.total_seconds()
-                if sleep_duration > 60:
-                    for i in range(int(sleep_duration / 60)):
-                        cdc_handler.check_logged_in()
-                        time.sleep(60)
-                    time.sleep(sleep_duration % 60)
+                    sleep_duration = sleep_duration.total_seconds()
+                    if sleep_duration > 60:
+                        for i in range(int(sleep_duration / 60)):
+                            cdc_handler.check_logged_in()
+                            time.sleep(60)
+                        time.sleep(sleep_duration % 60)
+                    else:
+                        time.sleep(sleep_duration)
+
+                    cdc_handler.log.info(f"Program now resuming! Cached log in ?: {cdc_handler.logged_in}")
                 else:
-                    time.sleep(sleep_duration)
-
-                cdc_handler.log.info(f"Program now resuming! Cached log in ?: {cdc_handler.logged_in}")
-            else:
-                break
-
-        cdc_handler.account_logout()
-        cdc_handler.driver.quit()
+                    break
+        except KeyboardInterrupt:
+            log.info("Program stopped by user.")
+        except Exception as e:
+            log.error(f"Program exited with the error: {e}")
+            notification_manager.send_notification_all(title="", msg=f"Program exited with the error: {e}")
+        finally:
+            cdc_handler.account_logout()
+            cdc_handler.driver.quit()
