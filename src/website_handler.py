@@ -363,6 +363,10 @@ class handler(CDCAbstract):
         time.sleep(0.5)
         self.accept_terms_and_conditions()
 
+        if selenium_common.is_elem_present(self.driver, By.ID, "ctl00_ContentPlaceHolder1_lblFullBookMsg"):
+            self.log.info(f"No available {field_type.upper()} sessions currently.")
+            return False
+
         test_name_element = selenium_common.wait_for_elem(self.driver, By.ID,
                                                           "ctl00_ContentPlaceHolder1_lblResAsmBlyDesc")
         test_name = test_name_element.text
@@ -473,6 +477,10 @@ class handler(CDCAbstract):
             return self.open_simulator_lessons_booking_page(field_type, call_depth + 1)
 
         time.sleep(2)
+        if selenium_common.is_elem_present(self.driver, By.ID, "ctl00_ContentPlaceHolder1_lblFullBookMsg"):
+            self.log.info("No available simulator lessons currently.")
+            return False
+
         return True
 
     def open_practical_test_booking_page(self, field_type: str, call_depth: int = 0):
@@ -493,6 +501,11 @@ class handler(CDCAbstract):
 
         time.sleep(0.5)
         self.accept_terms_and_conditions()
+
+        if selenium_common.is_elem_present(self.driver, By.ID, "ctl00_ContentPlaceHolder1_lblFullBookMsg"):
+            self.log.info(f"No available {field_type.upper()} sessions currently.")
+            return False
+
         return True
 
     def get_all_session_date_times(self, field_type: str):
