@@ -295,7 +295,7 @@ class handler(CDCAbstract):
 
                 field_type = (
                     Types.SIMULATOR if "SIMULATOR" in lesson_name else
-                    Types.PRACTICAL if "Lesson" in lesson_name else
+                    Types.PRACTICAL if "AUTOCAR" in lesson_name else
                     Types.PRACTICAL if "2BL" in lesson_name else
                     Types.PRACTICAL if "ONETEAM" in lesson_name else
                     Types.BTT if "BTT" in lesson_name else
@@ -325,7 +325,7 @@ class handler(CDCAbstract):
 
                 field_type = (
                     Types.SIMULATOR if "SIMULATOR" in lesson_name else
-                    Types.PRACTICAL if "Lesson" in lesson_name else
+                    Types.PRACTICAL if "AUTOCAR" in lesson_name else
                     Types.PRACTICAL if "2BL" in lesson_name else
                     Types.PRACTICAL if "ONETEAM" in lesson_name else
                     Types.BTT if "BTT" in lesson_name else
