@@ -43,6 +43,7 @@ class handler(CDCAbstract):
         self.program_config = program_config
 
         self.auto_reserve = program_config["auto_reserve"]
+        self.auto_restart = program_config["auto_restart"]
         self.reserve_for_same_day = program_config["reserve_for_same_day"]
 
         self.username = login_credentials["username"]
