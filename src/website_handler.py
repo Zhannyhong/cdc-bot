@@ -285,7 +285,6 @@ class handler(CDCAbstract):
         self._open_index("NewPortal/Booking/Dashboard.aspx")
         selenium_common.dismiss_alert(driver=self.driver, timeout=5)
 
-    # TODO: check if practical sessions bookings recorded correctly
     def get_reserved_lesson_date_time(self):
         rows = self.driver.find_elements(By.CSS_SELECTOR, "table#ctl00_ContentPlaceHolder1_gvReserved tr")
 

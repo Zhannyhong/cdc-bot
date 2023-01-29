@@ -14,12 +14,23 @@ Full credit goes to [cdc-helper](https://github.com/mfjkri/cdc-helper) by [mfjkr
 forked this repository from. I refactored the code, added the ability to book Simulator sessions, fixed some bugs, and 
 then some.
 
-I am currently trying to get a Class 3A license through the Standard team. I have tried to make it compatible with other 
-licenses (e.g. Class 2B) and other teams (e.g. One Team, Elite Team), but there is no guarantee that it will work as I 
-cannot test it.
+---
 
-I am currently maintaining the bot until I get my driving license, after which I would not have access to the website
-and would not be able to test and maintain the bot. Feel free to contribute by creating pull requests or opening issues!
+## ⚠️ DISCLAIMER: USE AT YOUR OWN RISK! ⚠️
+Recently, CDC has tried to clamp down on bots. If you are flagged for possible botting behaviour, they will disable the 
+"Stored Value" of your account for 5 days, and you will only be able to log in to your account after that. I am not sure 
+what they look at to determine if you are botting (e.g. number of requests per day, time between requests, CAPTCHAv3, 
+etc.).
+
+As I have already obtained my Class 3A license through the Standard team, I am unable to test and maintain the bot 
+anymore as my account has been closed. I have tried to make it compatible with other licenses (e.g. Class 2B) and other 
+teams (e.g. One Team, Elite Team), but there is no guarantee that it will work as I cannot test it.
+
+However, feel free to fork the project and add more features! For instance,
+  - Vary the time between requests to avoid bot detection(?)
+  - Bot on the CDC app as CAPTCHA is currently not implemented there
+  - Ability to book specific sessions when available instead of just reserving them
+  - Support the booking of more types of sessions (e.g. Circuit Enhancement Practice, etc.)
 
 ---
 
